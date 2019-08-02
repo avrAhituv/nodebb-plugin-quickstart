@@ -1,13 +1,28 @@
 {
-	"id": "nodebb-plugin-quickstart",
+	"id": "nodebb-plugin-campush",
 	"url": "https://github.com/NodeBB/nodebb-plugin-quickstart",
 	"library": "./library.js",
-	"hooks": [
+	"hooks": [		
 		{
-			"hook": "static:app.load", "method": "init"
+			"hook": "action:post.save", "method": "copyToRemoteServer"
 		},
 		{
-			"hook": "filter:admin.header.build", "method": "addAdminNavigation"
+			"hook":"action:user.loggedIn","method":"onUserLogin"
+		},
+		{
+			"hook":"static:user.loggedOut","method":"onUserLogout"
+		},
+		{
+			"hook": "action:post.delete", "method": "onDelete"
+		},
+		{
+			"hook": "action:post.restore", "method": "onRestore"
+		},
+		{
+			"hook": "action:post.edit", "method": "updateRemoteServer"
+		},
+		{
+			"hook":"action:post.purge","method":"removeFromRemoteServer"
 		}
 	],
 	"staticDirs": {
